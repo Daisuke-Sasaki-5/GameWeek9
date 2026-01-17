@@ -8,11 +8,11 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get; private set; }
-    public float SurvivalTime { get; private set; } 
+    public static GameManager instance;
 
     [Header("制限時間")]
     [SerializeField] private float timeLimit = 0f; // 制限時間
+    public static float LastSurvivalTime;
     [SerializeField] private TMP_Text timetext;
     private float timer;
     private bool isGameOver = false;
@@ -25,19 +25,16 @@ public class GameManager : MonoBehaviour
     private Coroutine startRoutine;
 
     private bool isWaitingForInput = true;
-    private bool isGameStarted = false;
+    public bool isGameStarted = false;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+       if(instance !=  null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+       instance = this;
     }
 
     private void Start()
@@ -89,7 +86,6 @@ public class GameManager : MonoBehaviour
         if(!isGameStarted || isGameOver) return;
 
         timer += Time.deltaTime;
-        SurvivalTime = timer;
         UpdateTimeUI();
         
     }
@@ -144,6 +140,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
+        LastSurvivalTime = timer;
         Debug.Log("ゲームオーバー");
         FadeManager.instance.FadeToScene("Result");
     }

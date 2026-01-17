@@ -36,7 +36,7 @@ public class TitleManager : MonoBehaviour
     {
         if(isLoading)return;
         isLoading = true;
-        FadeManager.instance.FadeToScene("GameScene");
+        FadeManager.instance.FadeToScene("Game");
     }
 
     /// <summary>

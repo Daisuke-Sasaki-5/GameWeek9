@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class RockSpawner : MonoBehaviour
@@ -31,13 +32,13 @@ public class RockSpawner : MonoBehaviour
             StartCoroutine(SpawnRoutine());
         }
 
-        elapsedTime += Time.time;
+        elapsedTime += Time.deltaTime;
     
     }
 
     private bool IsGameStarted()
     {
-        return true;
+        return GameManager.instance.isGameStarted;
     }
 
     IEnumerator SpawnRoutine()

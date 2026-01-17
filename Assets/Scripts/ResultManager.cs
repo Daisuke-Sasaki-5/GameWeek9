@@ -16,10 +16,8 @@ public class ResultManager : MonoBehaviour
         // 最初は全部表示
         foreach (var obj in showObjects)obj.SetActive(false);
 
-        if(GameManager.instance != null)
-        {
-            scoreText.text = $"Time:{GameManager.instance.SurvivalTime:F1}";
-        }
+        scoreText.text = $"Time:{GameManager.LastSurvivalTime:F1}";
+
 
         // 順番表示
         StartCoroutine(ShowUI());
@@ -45,7 +43,7 @@ public class ResultManager : MonoBehaviour
         Time.timeScale = 1;
 
         // ゲームシーンをロード
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Game");
     }
 
     /// <summary>
